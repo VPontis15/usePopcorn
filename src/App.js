@@ -48,10 +48,11 @@ const tempWatchedData = [
 ];
 
 export default function App() {
+  const [movies, setMovies] = useState(tempMovieData);
   return (
     <>
-      <NavBar />
-      <Main />
+      <NavBar movies={movies} />
+      <Main movies={movies} />
     </>
   );
 }
@@ -78,37 +79,36 @@ function Logo() {
   );
 }
 
-function NumResults() {
+function NumResults({ movies }) {
   return (
     <p className="num-results">
-      Found <strong>X</strong> results
+      Found <strong>{movies.length}</strong> results
     </p>
   );
 }
 
-function NavBar() {
+function NavBar({ movies }) {
   return (
     <nav className="nav-bar">
       <Logo />
       <Search />
-      <NumResults />
+      <NumResults movies={movies} />
     </nav>
   );
 }
 
-function Main() {
+function Main({ movies }) {
   const [watched, setWatched] = useState(tempWatchedData);
 
   return (
     <main className="main">
-      (<Movies />)
+      <Movies movies={movies} />
       <WatchedBox watched={watched} />
     </main>
   );
 }
 
-function Movies() {
-  const [movies, setMovies] = useState(tempMovieData);
+function Movies({ movies }) {
   const [isOpen1, setIsOpen1] = useState(true);
   return (
     <div className="box">
